@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'books',
     'accounts',
     'rest_framework_simplejwt.token_blacklist',
+    'borrows',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
