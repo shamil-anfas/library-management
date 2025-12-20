@@ -2,7 +2,7 @@ from django.utils import timezone
 from django.db import transaction
 from books.models import Book
 from borrows.models import Borrow
-
+from ..tasks import send_borrow_confirmation
 from django.core.exceptions import ValidationError
 
 
@@ -33,6 +33,9 @@ class BorrowService:
         # Update book availability
         book.available_copies -= 1
         book.save()
+
+        # 2. Trigger background task
+        send_borrow_confirmation.delay(borrow.id)
 
         return borrow
 
