@@ -17,6 +17,7 @@ class SignupView(APIView):
         return Response(
             {
                 "message": "User registered successfully",
+                "id":user.id,
                 "username": user.username,
                 "email": user.email
             },
@@ -42,6 +43,8 @@ class LoginView(APIView):
             )
 
         return Response({
+            "id":result["user"].id,
+            "username": result["user"].username,
             "access": result["access"],
             "refresh": result["refresh"]
         })
